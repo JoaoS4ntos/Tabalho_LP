@@ -1,0 +1,12 @@
+C:\Users\jpfsa\.vscode\Tabalho_LP\web_app\target\debug\deps\libstate-75a88ec041af8354.rmeta: C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\lib.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\ident_hash.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\cell.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\init.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\shim.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\type_map.rs
+
+C:\Users\jpfsa\.vscode\Tabalho_LP\web_app\target\debug\deps\libstate-75a88ec041af8354.rlib: C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\lib.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\ident_hash.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\cell.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\init.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\shim.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\type_map.rs
+
+C:\Users\jpfsa\.vscode\Tabalho_LP\web_app\target\debug\deps\state-75a88ec041af8354.d: C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\lib.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\ident_hash.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\cell.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\init.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\shim.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\type_map.rs
+
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\lib.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\ident_hash.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\cell.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\init.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\shim.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\state-0.6.0\src\type_map.rs:
