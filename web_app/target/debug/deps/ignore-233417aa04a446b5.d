@@ -1,0 +1,12 @@
+C:\Users\jpfsa\.vscode\Tabalho_LP\web_app\target\debug\deps\libignore-233417aa04a446b5.rmeta: C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\lib.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\default_types.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\dir.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\gitignore.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\overrides.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\pathutil.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\types.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\walk.rs
+
+C:\Users\jpfsa\.vscode\Tabalho_LP\web_app\target\debug\deps\ignore-233417aa04a446b5.d: C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\lib.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\default_types.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\dir.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\gitignore.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\overrides.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\pathutil.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\types.rs C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\walk.rs
+
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\lib.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\default_types.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\dir.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\gitignore.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\overrides.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\pathutil.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\types.rs:
+C:\Users\jpfsa\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ignore-0.4.22\src\walk.rs:
