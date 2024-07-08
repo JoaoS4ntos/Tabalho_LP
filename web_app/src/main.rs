@@ -5,8 +5,15 @@ use rocket::fs::{FileServer, relative};
 use rocket::serde::json::Json;
 use rocket::serde::Deserialize;
 use rocket::tokio;
+use rocket::State;
 
 mod model;
+
+#[derive(Deserialize)]
+struct LoginRequest {
+    username: String,
+    password: String,
+}
 
 #[derive(Deserialize)]
 struct VerifyRequest {
@@ -14,15 +21,23 @@ struct VerifyRequest {
     code: String,
 }
 
-#[get("/send_code/<phone>")]
-async fn send_code(phone: String) -> Json<String> {
-    let code = "123456"; // fazer um gerador de codigo aleatorio
+/*#[post("/login", data = "<login_request>")]
+async fn login(login_request: Json<LoginRequest>, db: &State<Database>) -> Json<String> {
+    // atribuir do front para LoginRequest o username e o password e fazer a conferencia de baixo no bd
+    if login_request.username == "User do bd" && login_request.password == "password do bd" {
+        // pegar o telefone do bd
+        let phone = "";
 
-    match model::send_sms(&phone, code).await {
-        Ok(_) => Json("Code sent".to_string()),
-        Err(e) => Json(format!("Failed to send SMS: {}", e)),
+        let code = "123456"; // fazer algo pra gerar o codigo aleatorio(essa parte eu faço)
+
+        match model::send_sms(&phone, code).await {
+            Ok(_) => Json("2FA code sent".to_string()),
+            Err(e) => Json(format!("Failed to send 2FA code: {}", e)),
+        }
+    } else {
+        Json("Invalid username or password".to_string())
     }
-}
+}*/
 
 #[post("/verify_code", data = "<verify_request>")]
 async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
@@ -39,5 +54,5 @@ async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", FileServer::from(relative!("static")))
-        .mount("/2fa", routes![send_code, verify_code])
+        .mount("/auth", routes![verify_code])
 }
