@@ -8,6 +8,7 @@ use rocket::tokio;
 use rocket::State;
 
 mod model;
+mod criptography;
 
 #[derive(Deserialize)]
 struct LoginRequest {
@@ -23,19 +24,23 @@ struct VerifyRequest {
 
 /*#[post("/login", data = "<login_request>")]
 async fn login(login_request: Json<LoginRequest>, db: &State<Database>) -> Json<String> {
-    // atribuir do front para LoginRequest o username e o password e fazer a conferencia de baixo no bd
-    if login_request.username == "User do bd" && login_request.password == "password do bd" {
-        // pegar o telefone do bd
-        let phone = "";
+    // Verifique as credenciais do usuário (este é apenas um placeholder)
+    if let Some(stored_hash) = db.get_password_hash(&login_request.username).await {
+        match crypto::verify_password(&stored_hash, &login_request.password) {
+            Ok(true) => {
+                // Obtenha o número de telefone do usuário no banco de dados
+                let phone = db.get_phone(&login_request.username).await.unwrap_or_else(|_| "+1234567890".to_string());
+                let code = "123456"; // Gere um código real em produção
 
-        let code = "123456"; // fazer algo pra gerar o codigo aleatorio(essa parte eu faço)
-
-        match model::send_sms(&phone, code).await {
-            Ok(_) => Json("2FA code sent".to_string()),
-            Err(e) => Json(format!("Failed to send 2FA code: {}", e)),
+                match two_factor::send_sms(&phone, code).await {
+                    Ok(_) => Json("Código enviado".to_string()),
+                    Err(e) => Json(format!("Falha ao enviar o código: {}", e)),
+                }
+            }
+            _ => Json("Usuário ou senha inválidos".to_string()),
         }
     } else {
-        Json("Invalid username or password".to_string())
+        Json("Usuário ou senha inválidos".to_string())
     }
 }*/
 
@@ -44,9 +49,9 @@ async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
     let stored_code = "123456"; // armazenar o codigo aleatorio
 
     if model::verify_code(stored_code, &verify_request.code).await {
-        Json("Verification successful".to_string())
+        Json("Sucesso na verificação".to_string())
     } else {
-        Json("Verification failed".to_string())
+        Json("Falha na verificação".to_string())
     }
 }
 
