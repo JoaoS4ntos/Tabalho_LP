@@ -108,10 +108,24 @@
     -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
     -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
   }
+
+  .cloud-wrap {
+    width: 1300px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    justify-content: center;
+    box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  }
   
   .login-form {
     width: 100%;
     position: relative;
+
   }
   
   .login-title {
@@ -131,6 +145,22 @@
     padding-bottom: 39px;
   }
 
+  .cloud-title {
+    font-family: JosefinSans-Bold;
+    font-size: 30px;
+    color: #fff;
+    line-height: 1.2;
+    text-align: center;
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #57b846;
+    padding-top: 20px;
+    padding-bottom: 15px;
+  }
+
   .wrap-input {
     width: 100%;
     background-color: #fff;
@@ -138,7 +168,51 @@
     position: relative;
     z-index: 1;
   }
+
+  .wrap-file {
+    font-family: JosefinSans-Bold;
+    font-size: 25px;
+    width: 100%;
+    height: 7rem;
+    background-color: #eaeaea;
+    border-radius: 27px;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 60px;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+  }
+  .file-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 15%;
+    height: 35px;
+    background-color: #3e8831;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-family: Ubuntu-Bold;
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
   
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .div-file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
   .input {
     font-family: Ubuntu-Bold;
     font-size: 15px;
