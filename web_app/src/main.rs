@@ -16,6 +16,9 @@ use rocket_sync_db_pools::Connection;
 use std::fs;
 use diesel::prelude::*;
 use rocket::response::content::RawHtml;
+use dotenvy::dotenv;
+use std::env;
+use rocket::fs::NamedFile;
 
 mod model;
 mod criptography;
@@ -46,23 +49,24 @@ struct VerifyRequest {
     code: String,
 }
 
-#[get("/register")]
+#[get("/register", rank = 3)]
 async fn get_register() -> Option<RawHtml<String>> {
     let content: String = fs::read_to_string("src/static/register.html").ok()?;
     Some(RawHtml(content))
-}
+} 
 
 #[post("/register", data = "<user_form>")]
 async fn post_register(user_form: Form<UserForm>, conn: DbConn) -> Result<RawHtml<String>, rocket::http::Status> {
+
     use crate::schema::users::dsl::users;
 
-    let new_user = NewUser {
+    let new_user: NewUser = NewUser {
         username: user_form.username.clone(),
         password: user_form.password.clone(),
         phone: user_form.phone.clone(),
     };
 
-    let result = conn.run(move |c| {
+    let result: Result<usize, diesel::result::Error> = conn.run(move |c: &mut PgConnection| {
         diesel::insert_into(users)
             .values(&new_user)
             .execute(c)
@@ -107,13 +111,18 @@ async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
     }
 }
 
+#[get("/", rank = 4)]
+async fn index_page() -> Option<NamedFile> {
+    NamedFile::open("static/index.html").await.ok()
+}
+
 #[launch]
 fn rocket() -> _ {
+    dotenv().ok();
+
     rocket::build()
         .attach(DbConn::fairing())
-        .mount("/", routes![get_register, post_register])
-        .mount("/static", FileServer::from(relative!("static")))
-        .mount("/", FileServer::from(relative!("static")))
+        .mount("/", routes![get_register, post_register,index_page, pages::register_page, pages::cloud_page])
+        .mount("/static", FileServer::from(relative!("static")).rank(10))
         .mount("/auth", routes![verify_code])
-        .mount("/", routes![pages::register_page, pages::cloud_page])
 }
