@@ -9,6 +9,7 @@ use rocket::State;
 
 mod model;
 mod criptography;
+mod pages;
 
 #[derive(Deserialize)]
 struct LoginRequest {
@@ -59,7 +60,6 @@ async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", FileServer::from(relative!("static")))
-        .mount("/register", FileServer::from(relative!("static/register.html")))
-        .mount("/cloud", FileServer::from(relative!("static/cloud.html")))
         .mount("/auth", routes![verify_code])
+        .mount("/", routes![pages::register_page, pages::cloud_page])
 }
