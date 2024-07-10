@@ -7,23 +7,27 @@ extern crate rocket_sync_db_pools;
 use rocket::fs::{FileServer, relative};
 use rocket::serde::json::Json;
 use rocket::serde::Deserialize;
-use rocket::tokio;
 use rocket::State;
 use rocket::form::Form;
 use rocket_sync_db_pools::database;
 use rocket_sync_db_pools::diesel::PgConnection;
-use rocket_sync_db_pools::Connection;
 use std::fs;
 use diesel::prelude::*;
 use rocket::response::content::RawHtml;
 use dotenvy::dotenv;
 use std::env;
 use rocket::fs::NamedFile;
+use crate::db::DbPool; // Importe o DbPool do seu módulo de banco de dados
 
 mod model;
 mod criptography;
 mod pages;
 mod schema;
+mod db;
+mod models;
+mod user_ops;
+mod files_ops;
+mod args;
 
 use crate::model::NewUser;
 
@@ -37,7 +41,7 @@ struct UserForm {
     phone: String,
 }
 
-#[derive(Deserialize)]
+#[derive(FromForm)]
 struct LoginRequest {
     username: String,
     password: String,
@@ -62,7 +66,7 @@ async fn post_register(user_form: Form<UserForm>, conn: DbConn) -> Result<RawHtm
 
     let new_user: NewUser = NewUser {
         username: user_form.username.clone(),
-        password: user_form.password.clone(),
+        password_hash: user_form.password.clone(),
         phone: user_form.phone.clone(),
     };
 
@@ -78,27 +82,34 @@ async fn post_register(user_form: Form<UserForm>, conn: DbConn) -> Result<RawHtm
     }
 }
 
-/*#[post("/login", data = "<login_request>")]
-async fn login(login_request: Json<LoginRequest>, db: &State<Database>) -> Json<String> {
-    // Verifique as credenciais do usuário (este é apenas um placeholder)
-    if let Some(stored_hash) = db.get_password_hash(&login_request.username).await {
-        match crypto::verify_password(&stored_hash, &login_request.password) {
-            Ok(true) => {
-                // Obtenha o número de telefone do usuário no banco de dados
-                let phone = db.get_phone(&login_request.username).await.unwrap_or_else(|_| "+1234567890".to_string());
-                let code = "123456"; // Gere um código real em produção
+#[post("/login", data = "<login_request>")]
+async fn login(login_request: Form<LoginRequest>, db: &State<DbPool>) -> Json<String> {
+    let login_request = login_request.into_inner();
+    
+    // Obtendo a conexão do pool
+    let mut conn = db
+        .get()
+        .expect("Failed to get DB connection from pool.");
 
-                match two_factor::send_sms(&phone, code).await {
-                    Ok(_) => Json("Código enviado".to_string()),
-                    Err(e) => Json(format!("Falha ao enviar o código: {}", e)),
-                }
+    // Verificando as credenciais do usuário
+    if let Some(user) = models::get_user_by_username(&mut conn, &login_request.username) {
+        if bcrypt::verify(&login_request.password, &user.password_hash).unwrap_or(false) {
+            // Obtendo o número de telefone do usuário no banco de dados
+            let phone = user.phone.clone();
+            let code = "123456"; // Gere um código real em produção
+
+            // Simulando o envio do código por SMS
+            match model::send_sms(&phone, code).await {
+                Ok(_) => Json("Código enviado".to_string()),
+                Err(e) => Json(format!("Falha ao enviar o código: {}", e)),
             }
-            _ => Json("Usuário ou senha inválidos".to_string()),
+        } else {
+            Json("Usuário ou senha inválidos".to_string())
         }
     } else {
         Json("Usuário ou senha inválidos".to_string())
     }
-}*/
+}
 
 #[post("/verify_code", data = "<verify_request>")]
 async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
@@ -124,5 +135,5 @@ fn rocket() -> _ {
         .attach(DbConn::fairing())
         .mount("/", routes![get_register, post_register,index_page, pages::register_page, pages::cloud_page])
         .mount("/static", FileServer::from(relative!("static")).rank(10))
-        .mount("/auth", routes![verify_code])
+        .mount("/auth", routes![login, verify_code])
 }

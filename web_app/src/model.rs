@@ -1,18 +1,16 @@
+use diesel::prelude::Insertable;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::env;
 use crate::schema::users;
-use crate::Insertable;
-
 
 #[derive(Insertable)]
 #[table_name = "users"]
 pub struct NewUser {
     pub username: String,
-    pub password: String,
+    pub password_hash: String,
     pub phone: String,
 }
-
 
 #[derive(Serialize)]
 struct TwilioMessage {
