@@ -1,15 +1,38 @@
 #[macro_use]
 extern crate rocket;
+extern crate diesel;
+extern crate rocket_sync_db_pools;
+
 
 use rocket::fs::{FileServer, relative};
 use rocket::serde::json::Json;
 use rocket::serde::Deserialize;
 use rocket::tokio;
 use rocket::State;
+use rocket::form::Form;
+use rocket_sync_db_pools::database;
+use rocket_sync_db_pools::diesel::PgConnection;
+use rocket_sync_db_pools::Connection;
+use std::fs;
+use diesel::prelude::*;
+use rocket::response::content::RawHtml;
 
 mod model;
 mod criptography;
 mod pages;
+mod schema;
+
+use crate::model::NewUser;
+
+#[database("postgres_db")]
+struct DbConn(PgConnection);
+
+#[derive(FromForm)]
+struct UserForm {
+    username: String,
+    password: String,
+    phone: String,
+}
 
 #[derive(Deserialize)]
 struct LoginRequest {
@@ -21,6 +44,34 @@ struct LoginRequest {
 struct VerifyRequest {
     phone: String,
     code: String,
+}
+
+#[get("/register")]
+async fn get_register() -> Option<RawHtml<String>> {
+    let content: String = fs::read_to_string("src/static/register.html").ok()?;
+    Some(RawHtml(content))
+}
+
+#[post("/register", data = "<user_form>")]
+async fn post_register(user_form: Form<UserForm>, conn: DbConn) -> Result<RawHtml<String>, rocket::http::Status> {
+    use crate::schema::users::dsl::users;
+
+    let new_user = NewUser {
+        username: user_form.username.clone(),
+        password: user_form.password.clone(),
+        phone: user_form.phone.clone(),
+    };
+
+    let result = conn.run(move |c| {
+        diesel::insert_into(users)
+            .values(&new_user)
+            .execute(c)
+    }).await;
+
+    match result {
+        Ok(_) => Ok(RawHtml(format!("<p>User '{}' registered successfully!</p>", user_form.username))),
+        Err(e) => Ok(RawHtml(format!("<p>Error registering user: {}</p>", e))),
+    }
 }
 
 /*#[post("/login", data = "<login_request>")]
@@ -59,6 +110,9 @@ async fn verify_code(verify_request: Json<VerifyRequest>) -> Json<String> {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
+        .attach(DbConn::fairing())
+        .mount("/", routes![get_register, post_register])
+        .mount("/static", FileServer::from(relative!("static")))
         .mount("/", FileServer::from(relative!("static")))
         .mount("/auth", routes![verify_code])
         .mount("/", routes![pages::register_page, pages::cloud_page])

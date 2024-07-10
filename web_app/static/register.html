@@ -12,23 +12,23 @@
 	<div class="limiter">
 		<div class="container">
 			<div class="wrap">
-				<form class="login-form  p-l-55 p-r-55 p-t-178">
+				<form class="login-form  p-l-55 p-r-55 p-t-178" method="post" action="/register">
 					<span class="login-title">
 						Registre-se
 					</span>
 
 					<div class="wrap-input m-b-16">
-						<input class="input" type="text" name="Nome" placeholder="Nome">
+						<input class="input" type="text" name="Nome" placeholder="Nome" required>
 						<span class="focus-input"></span>
 					</div>
 
 					<div class="wrap-input m-b-16">
-						<input class="input" type="password" name="senha" placeholder="Senha">
+						<input class="input" type="password" name="senha" placeholder="Senha" required>
 						<span class="focus-input"></span>
 					</div>
 
                     <div class="wrap-input m-b-16">
-						<input class="input" type="text" name="Telefone" placeholder="Telefone">
+						<input class="input" type="text" name="Telefone" placeholder="Telefone" required>
 						<span class="focus-input"></span>
 					</div>
 
@@ -36,18 +36,17 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="button">
+						<button class="button" type="submit">
 							Registrar
 						</button>
 					</div>
 
 					<div class="flex-col-c p-t-170 p-b-40">
 						
-						<a href="#" class="txt">
-							Registre-se
-						</a>
+						
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	

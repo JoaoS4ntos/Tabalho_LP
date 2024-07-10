@@ -3,7 +3,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR NOT NULL,
     password_hash VARCHAR NOT NULL,
-    totp_secret VARCHAR
+    phone VARCHAR NOT NULL,
 );
 CREATE TABLE files (
     id SERIAL PRIMARY KEY,

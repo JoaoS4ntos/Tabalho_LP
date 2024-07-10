@@ -1,11 +1,11 @@
 // @generated automatically by Diesel CLI.
-
+use crate::table;
 table! {
     users (id) {
         id -> Int4,
         username -> Varchar,
-        password_hash -> Varchar,
-        totp_secret -> Varchar,
+        password -> Varchar,
+        phone -> Varchar,
     }
 }
 
